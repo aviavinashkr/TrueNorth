@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TrueNorth (India Edition) - Goal-First Investing</title>
+  <meta name="description" content="A goal-first micro-investing platform that translates financial jargon into simple terms and connects you to global markets.">
+  <!-- Google Fonts: Plus Jakarta Sans for premium modern typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="index.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Top Navigation Bar -->
+    <header class="navbar">
+      <div class="brand">
+        <div class="logo-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon>
+          </svg>
+        </div>
+        <span class="logo-text">TrueNorth</span>
+        <span class="logo-badge">India</span>
+      </div>
+
+      <nav class="nav-links">
+        <button class="nav-tab active" data-tab="dashboard" id="tab-dashboard">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9"></rect><rect x="14" y="3" width="7" height="5"></rect><rect x="14" y="12" width="7" height="9"></rect><rect x="3" y="16" width="7" height="5"></rect></svg>
+          <span>My Goals</span>
+        </button>
+        <button class="nav-tab" data-tab="simulator" id="tab-simulator">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+          <span>Sandbox Simulator</span>
+        </button>
+        <button class="nav-tab" data-tab="passport" id="tab-passport">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+          <span>Global Passport</span>
+        </button>
+        <button class="nav-tab" data-tab="learning" id="tab-learning">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+          <span>Learning Hub</span>
+        </button>
+      </nav>
+
+      <!-- Global Jargon Translator Toggle -->
+      <div class="translator-control">
+        <span class="translator-label" id="translator-status">Jargon: ON</span>
+        <label class="switch" id="jargon-switch-container">
+          <input type="checkbox" id="jargon-toggle" checked>
+          <span class="slider round"></span>
+        </label>
+      </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="main-layout">
+      <div class="content-area">
+        
+        <!-- Dashboard Tab -->
+        <section id="dashboard-section" class="tab-content active">
+          <div class="section-header">
+            <div>
+              <h1 class="text-gradient">Welcome to TrueNorth</h1>
+              <p class="subtitle">Ditch the jargon. Invest in your real-life aspirations.</p>
+            </div>
+            <button class="btn btn-primary" id="btn-create-goal">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+              <span>Create New Goal</span>
+            </button>
+          </div>
+
+          <!-- Active Goals Grid -->
+          <div class="goals-grid" id="goals-container">
+            <!-- Dynamically populated -->
+          </div>
+        </section>
+
+        <!-- Sandbox Simulator Tab -->
+        <section id="simulator-section" class="tab-content">
+          <div class="section-header">
+            <div>
+              <h1 class="text-gradient">Sandbox Simulator</h1>
+              <p class="subtitle">Experiment with historical data and see the magic of compounding.</p>
+            </div>
+          </div>
+          <div id="simulator-container">
+            <!-- Dynamically populated -->
+          </div>
+        </section>
+
+        <!-- Global Passport Tab -->
+        <section id="passport-section" class="tab-content">
+          <div class="section-header">
+            <div>
+              <h1 class="text-gradient">TrueNorth Passport</h1>
+              <p class="subtitle">Diversify your portfolio. Track top global brands and hedge against inflation.</p>
+            </div>
+          </div>
+          <div id="passport-container">
+            <!-- Dynamically populated -->
+          </div>
+        </section>
+
+        <!-- Learning Hub Tab -->
+        <section id="learning-section" class="tab-content">
+          <div class="section-header">
+            <div>
+              <h1 class="text-gradient">Learning Hub</h1>
+              <p class="subtitle">Quick, 30-second financial lessons designed for the everyday investor.</p>
+            </div>
+          </div>
+          <div id="learning-container">
+            <!-- Dynamically populated -->
+          </div>
+        </section>
+
+      </div>
+
+      <!-- Right Sidebar for Contextual Information / Jargon Translation Panel -->
+      <aside class="sidebar">
+        <div class="sidebar-card glass-panel" id="sidebar-translator-info">
+          <h3 class="sidebar-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+            <span>Jargon Translator</span>
+          </h3>
+          <p class="sidebar-text" id="translator-explanation">
+            Financial terms can be scary. Toggle the switch at the top to instantly translate terms like <strong>SIP</strong>, <strong>ELSS</strong>, and <strong>Expense Ratio</strong> into plain English!
+          </p>
+          <div class="jargon-examples">
+            <div class="jargon-example-item">
+              <span class="badge badge-jargon">ELSS</span>
+              <span class="arrow">→</span>
+              <span class="badge badge-plain">Tax-Saving Stock Basket</span>
+            </div>
+            <div class="jargon-example-item">
+              <span class="badge badge-jargon">SIP</span>
+              <span class="arrow">→</span>
+              <span class="badge badge-plain">Automated Monthly Savings</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="sidebar-card glass-panel" id="sidebar-contextual-tip">
+          <h3 class="sidebar-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+            <span>Did You Know?</span>
+          </h3>
+          <p class="sidebar-text" id="contextual-tip-text">
+            Keeping your money in a savings account or traditional fixed deposit actually loses purchasing power over time due to inflation. Over the long run, equity index funds have historically beaten inflation in India by a wide margin.
+          </p>
+          <button class="btn-link" id="sidebar-read-more">Learn more in 30s →</button>
+        </div>
+      </aside>
+    </main>
+
+    <!-- Goal Creation Modal -->
+    <div class="modal-overlay" id="goal-modal">
+      <div class="modal-content glass-panel animate-scale">
+        <button class="modal-close" id="btn-close-modal">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+        <div id="goal-wizard-container">
+          <!-- Dynamically populated by goals.js -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main JavaScript Application Entry -->
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

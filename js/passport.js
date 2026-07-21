@@ -97,7 +97,7 @@ function renderStockCards() {
           <div class="stock-price">${formattedPrice}</div>
           <div class="stock-change ${changeClass}">
             <span>${changeIcon} ${Math.abs(asset.change).toFixed(2)}%</span>
-            <span style="font-size: 10px; color: hsl(var(--text-muted)); font-weight: 500;">Today</span>
+            <span style="font-size: 10px; color: var(--color-ink-mute); font-weight: 400;">Today</span>
           </div>
         </div>
       </div>
@@ -118,8 +118,8 @@ export function renderPassportTab() {
       <div style="display: flex; flex-direction: column; gap: 20px;">
         <div class="glass-panel" style="padding: 24px; display: flex; justify-content: space-between; align-items: center;">
           <div>
-            <h3 style="font-size: 18px; font-weight: 700; color: white;">International Markets Window</h3>
-            <p style="font-size: 13px; color: hsl(var(--text-secondary)); margin-top: 4px;">Convert prices to see how they fit your budget.</p>
+            <h3 style="font-size: 18px; font-weight: 400; color: var(--color-ink);">International Markets Window</h3>
+            <p style="font-size: 13px; color: var(--color-ink-mute); margin-top: 4px;">Convert prices to see how they fit your budget.</p>
           </div>
           
           <div class="translator-control" style="padding: 6px 12px;">

@@ -1,6 +1,10 @@
 # TrueNorth (India Edition): Product Concept & Execution Plan
 *A Goal-First Micro-Investing Platform for the Everyday Indian Investor*
 
+Idea is form : Razorpay
+
+https://razorpay.com/m/fix-my-itch/
+![alt text](image.png)
 ---
 
 ## 1. Executive Summary & Market Opportunity

@@ -65,7 +65,7 @@ function renderCompoundingWidget() {
 
   return `
     <div class="interactive-lesson-widget">
-      <h4 style="font-size: 14px; font-weight: 700; margin-bottom: 12px; color: white;">Compounding Simulator (One-time ₹10,000)</h4>
+      <h4 style="font-size: 14px; font-weight: 400; margin-bottom: 12px; color: var(--color-ink);">Compounding Simulator (One-time ₹10,000)</h4>
       
       <div class="form-group" style="margin-bottom: 16px;">
         <div class="form-label-row">
@@ -84,13 +84,13 @@ function renderCompoundingWidget() {
           <div class="result-label" style="font-size: 11px;">Invested</div>
           <div class="result-value" style="font-size: 15px;">₹10,000</div>
         </div>
-        <div class="result-card highlight" style="padding: 10px; background: rgba(139, 92, 246, 0.1); border-color: rgba(139, 92, 246, 0.3);">
-          <div class="result-label" style="font-size: 11px; color: #c084fc;">Grows To (at 12%)</div>
-          <div class="result-value" id="learn-comp-final-val" style="font-size: 16px; color: #c084fc;">${formatINR(finalValue)}</div>
+        <div class="result-card highlight" style="padding: 10px; background: rgba(83, 58, 253, 0.06); border-color: rgba(83, 58, 253, 0.2);">
+          <div class="result-label" style="font-size: 11px; color: var(--color-primary);">Grows To (at 12%)</div>
+          <div class="result-value" id="learn-comp-final-val" style="font-size: 16px; color: var(--color-primary);">${formatINR(finalValue)}</div>
         </div>
       </div>
 
-      <p style="font-size: 12px; color: hsl(var(--text-secondary)); margin-top: 12px; line-height: 1.4; text-align: center;">
+      <p style="font-size: 12px; color: var(--color-ink-mute); margin-top: 12px; line-height: 1.4; text-align: center;">
         Your money multiplied by <strong>${(finalValue / principal).toFixed(1)}x</strong>. 
         Notice how it grows from ${formatINR(17623)} (in 5 yrs) to ${formatINR(299599)} (in 30 yrs)!
       </p>
@@ -136,7 +136,7 @@ function renderInflationWidget() {
 
   return `
     <div class="interactive-lesson-widget">
-      <h4 style="font-size: 14px; font-weight: 700; margin-bottom: 12px; color: white;">The Shrinking Value of Cash (₹10,000 in a Safe)</h4>
+      <h4 style="font-size: 14px; font-weight: 400; margin-bottom: 12px; color: var(--color-ink);">The Shrinking Value of Cash (₹10,000 in a Safe)</h4>
       
       <div class="form-group" style="margin-bottom: 16px;">
         <div class="form-label-row">
@@ -161,7 +161,7 @@ function renderInflationWidget() {
         </div>
       </div>
 
-      <p style="font-size: 12px; color: hsl(var(--text-secondary)); margin-top: 12px; line-height: 1.4; text-align: center;">
+      <p style="font-size: 12px; color: var(--color-ink-mute); margin-top: 12px; line-height: 1.4; text-align: center;">
         In ${inflationYears} years, your ₹10,000 cash note will only buy what <strong>${formatINR(purchasingPower)}</strong> buys today. 
         It has lost <strong>${(100 - (purchasingPower/principal)*100).toFixed(0)}%</strong> of its value!
       </p>
@@ -202,31 +202,31 @@ function bindInflationEvents() {
 function renderFluctuationWidget() {
   return `
     <div class="interactive-lesson-widget">
-      <h4 style="font-size: 14px; font-weight: 700; margin-bottom: 8px; color: white;">Market Noise Simulator</h4>
-      <p style="font-size: 11px; color: hsl(var(--text-secondary)); margin-bottom: 12px;">Trigger news events and see how the price responds.</p>
+      <h4 style="font-size: 14px; font-weight: 400; margin-bottom: 8px; color: var(--color-ink);">Market Noise Simulator</h4>
+      <p style="font-size: 11px; color: var(--color-ink-mute); margin-bottom: 12px;">Trigger news events and see how the price responds.</p>
       
       <div style="display: flex; gap: 12px; margin-bottom: 16px;">
-        <button class="btn btn-secondary" id="btn-market-good" style="flex: 1; padding: 8px 12px; font-size: 12px; background: rgba(16,185,129,0.1); border-color: rgba(16,185,129,0.3); color: #a7f3d0;">
+        <button class="btn btn-secondary" id="btn-market-good" style="flex: 1; padding: 8px 12px; font-size: 12px; background: rgba(16,185,129,0.06); border-color: rgba(16,185,129,0.2); color: var(--color-success);">
           📢 Positive News
         </button>
-        <button class="btn btn-secondary" id="btn-market-bad" style="flex: 1; padding: 8px 12px; font-size: 12px; background: rgba(239,68,68,0.1); border-color: rgba(239,68,68,0.3); color: #fca5a5;">
+        <button class="btn btn-secondary" id="btn-market-bad" style="flex: 1; padding: 8px 12px; font-size: 12px; background: rgba(239,68,68,0.06); border-color: rgba(239,68,68,0.15); color: var(--color-error);">
           📢 Negative News
         </button>
       </div>
 
-      <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.02); padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.04);">
+      <div style="display: flex; justify-content: space-between; align-items: center; background: var(--color-canvas-soft); padding: 12px; border-radius: 8px; border: 1px solid var(--color-hairline);">
         <div>
-          <span style="font-size: 11px; color: hsl(var(--text-secondary));">Share Price</span>
-          <div id="learn-market-price" style="font-size: 20px; font-weight: 800; color: white;">₹${marketPrice}</div>
+          <span style="font-size: 11px; color: var(--color-ink-mute);">Share Price</span>
+          <div id="learn-market-price" style="font-size: 20px; font-weight: 400; color: var(--color-ink);">₹${marketPrice}</div>
         </div>
-        <div id="learn-market-news-feed" style="font-size: 12px; font-style: italic; color: #a5b4fc; max-width: 180px; text-align: right; line-height: 1.3;">
+        <div id="learn-market-news-feed" style="font-size: 12px; font-style: italic; color: var(--color-primary); max-width: 180px; text-align: right; line-height: 1.3;">
           Market is quiet. Stable earnings.
         </div>
       </div>
       
       <div style="margin-top: 12px; text-align: center;">
-        <span style="font-size: 11px; color: hsl(var(--text-muted));">Price History: </span>
-        <span id="learn-market-history-spark" style="font-family: monospace; font-size: 12px; letter-spacing: 2px; color: hsl(var(--color-primary));"></span>
+        <span style="font-size: 11px; color: var(--color-ink-mute);">Price History: </span>
+        <span id="learn-market-history-spark" style="font-family: monospace; font-size: 12px; letter-spacing: 2px; color: var(--color-primary);"></span>
       </div>
     </div>
   `;
@@ -281,7 +281,7 @@ function bindFluctuationEvents() {
     if (priceText) priceText.textContent = `₹${marketPrice}`;
     if (newsFeed) {
       newsFeed.textContent = news.text;
-      newsFeed.style.color = news.change > 0 ? "#a7f3d0" : "#fca5a5";
+      newsFeed.style.color = news.change > 0 ? "var(--color-success)" : "var(--color-error)";
     }
     updateSparkline();
   };

@@ -5,15 +5,27 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TrueNorth (India Edition) - Goal-First Investing</title>
   <meta name="description" content="A goal-first micro-investing platform that translates financial jargon into simple terms and connects you to global markets.">
-  <!-- Google Fonts: Plus Jakarta Sans for premium modern typography -->
+  <!-- Google Fonts: Inter — closest open-source match to Sohne per DESIGN.md -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="index.css">
 </head>
 <body>
+  <!-- Gradient Mesh Backdrop (Stripe signature) -->
+  <div class="gradient-mesh-backdrop" aria-hidden="true"></div>
+
+  <!-- Floating Particles (ambient animation) -->
+  <div class="floating-particles" aria-hidden="true">
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+  </div>
+
   <div class="app-container">
-    <!-- Top Navigation Bar -->
+    <!-- Top Navigation Bar (nav-bar-on-mesh) -->
     <header class="navbar">
       <div class="brand">
         <div class="logo-icon">
@@ -158,7 +170,7 @@
 
     <!-- Goal Creation Modal -->
     <div class="modal-overlay" id="goal-modal">
-      <div class="modal-content glass-panel animate-scale">
+      <div class="modal-content glass-panel">
         <button class="modal-close" id="btn-close-modal">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
         </button>
@@ -167,6 +179,12 @@
         </div>
       </div>
     </div>
+
+    <!-- Footer (footer-light per DESIGN.md) -->
+    <footer class="site-footer">
+      <p>TrueNorth India Edition · A goal-first micro-investing platform · Built with ❤️ for the everyday Indian investor</p>
+      <p style="margin-top: 8px;">Inspired by <a href="https://razorpay.com/m/fix-my-itch/" target="_blank" rel="noopener">Razorpay Fix My Itch</a></p>
+    </footer>
   </div>
 
   <!-- Main JavaScript Application Entry -->

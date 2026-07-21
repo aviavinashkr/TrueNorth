@@ -165,7 +165,7 @@ export function renderGoals() {
           </div>
         </div>
         
-        <button class="btn-delete-goal" data-id="${goal.id}" style="position: absolute; top: 12px; right: 80px; background: none; border: none; color: rgba(255,255,255,0.2); cursor: pointer; font-size: 14px; hover: { color: red }">
+        <button class="btn-delete-goal" data-id="${goal.id}">
           <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
         </button>
       </div>
@@ -319,7 +319,7 @@ function renderWizard() {
         </div>
         <div class="preview-row" style="align-items: flex-start;">
           <span class="preview-label" style="margin-top: 2px;">Strategy Info</span>
-          <span class="preview-value" style="font-weight: 400; font-size: 13px; color: hsl(var(--text-secondary)); text-align: right; max-width: 250px;">
+          <span class="preview-value" style="font-weight: 400; font-size: 13px; color: var(--color-ink-mute); text-align: right; max-width: 250px;">
             ${portfolio.desc}
           </span>
         </div>
@@ -336,7 +336,7 @@ function renderWizard() {
         </div>
       </div>
       
-      <p style="font-size: 12px; color: hsl(var(--text-muted)); margin-top: 16px; text-align: center; line-height: 1.5;">
+      <p style="font-size: 12px; color: var(--color-ink-mute); margin-top: 16px; text-align: center; line-height: 1.5;">
         By continuing, you are setting up a sandbox bucket. No real money will be transacted. 
         You can simulate and track this portfolio with zero risk.
       </p>
@@ -463,7 +463,7 @@ function createNewGoal() {
   setTimeout(() => {
     const newCard = document.querySelector(`.goal-card[data-id="${newGoal.id}"]`);
     if (newCard) {
-      newCard.style.outline = "2px solid hsl(var(--color-primary))";
+      newCard.style.outline = "2px solid var(--color-primary)";
       newCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
       setTimeout(() => {
         newCard.style.transition = "outline 1s";

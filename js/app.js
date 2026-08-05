@@ -12,6 +12,14 @@ import { initLearning, renderLearningTab } from './learning.js';
 let currentTab = "dashboard";
 let jargonSimplified = false;
 
+// Tab Routing Registry
+const tabHandlers = {
+  "dashboard": renderGoals,
+  "simulator": updateSimulator,
+  "passport": renderPassportTab,
+  "learning": renderLearningTab
+};
+
 /**
  * Handles tab switching logic
  * @param {string} tabId 
@@ -39,15 +47,8 @@ function switchTab(tabId) {
   });
 
   // Module specific updates when switching
-  if (tabId === "dashboard") {
-    renderGoals();
-  } else if (tabId === "simulator") {
-    // Re-render simulator to draw SVG chart with correct width
-    updateSimulator();
-  } else if (tabId === "passport") {
-    renderPassportTab();
-  } else if (tabId === "learning") {
-    renderLearningTab();
+  if (tabHandlers[tabId]) {
+    tabHandlers[tabId]();
   }
 
   // Re-apply jargon translation state to newly rendered elements
@@ -73,14 +74,8 @@ document.addEventListener('DOMContentLoaded', () => {
     jargonSimplified = simplified;
     
     // Refresh the active tab elements to translate them
-    if (currentTab === "dashboard") {
-      renderGoals();
-    } else if (currentTab === "simulator") {
-      updateSimulator();
-    } else if (currentTab === "passport") {
-      renderPassportTab();
-    } else if (currentTab === "learning") {
-      renderLearningTab();
+    if (tabHandlers[currentTab]) {
+      tabHandlers[currentTab]();
     }
   });
 

@@ -2,7 +2,7 @@
    TrueNorth Goals & Portfolio Mapping Module
    ========================================================================== */
 
-import { t } from './jargon.js';
+import { t, escapeHTML } from './jargon.js';
 
 // Pre-populated active goals
 let goals = [
@@ -77,12 +77,16 @@ function getPortfolioConfig(years) {
  * Calculates the monthly SIP required using compound interest
  * SIP = Target * r / ((1 + r)^n - 1)
  */
-function calculateRequiredSIP(target, years, rate) {
+export function calculateRequiredSIP(target, years, rate) {
+  if (!target || target <= 0 || !years || years <= 0 || !rate || rate <= 0) {
+    return 0;
+  }
   const r = rate / 12;
   const n = years * 12;
-  if (r === 0) return Math.round(target / n);
-  const sip = (target * r) / (Math.pow(1 + r, n) - 1);
-  return Math.round(sip);
+  const denom = Math.pow(1 + r, n) - 1;
+  if (denom <= 0) return Math.round(target / n);
+  const sip = (target * r) / denom;
+  return Number.isFinite(sip) ? Math.round(sip) : 0;
 }
 
 /**
@@ -140,7 +144,7 @@ export function renderGoals() {
           </div>
         </div>
         <div>
-          <h3 class="goal-title">${goal.title}</h3>
+          <h3 class="goal-title">${escapeHTML(goal.title)}</h3>
           <div class="goal-target">Target: ${formatINR(goal.targetAmount)}</div>
         </div>
         
@@ -272,7 +276,7 @@ function renderWizard() {
       <div style="display: flex; flex-direction: column; gap: 24px;">
         <div class="form-group">
           <label class="form-label" for="goal-name-input">Goal Name</label>
-          <input type="text" id="goal-name-input" class="input-text" value="${goalName}" placeholder="e.g. My Mumbai Flat">
+          <input type="text" id="goal-name-input" class="input-text" value="${escapeHTML(goalName)}" placeholder="e.g. My Mumbai Flat">
         </div>
 
         <div class="form-group">
@@ -328,7 +332,7 @@ function renderWizard() {
         
         <div class="preview-row">
           <span class="preview-label">Target Goal</span>
-          <span class="preview-value">${goalName || 'My Goal'} (${formatINR(targetAmount)})</span>
+          <span class="preview-value">${escapeHTML(goalName || 'My Goal')} (${formatINR(targetAmount)})</span>
         </div>
         <div class="preview-row">
           <span class="preview-label">Required Monthly Savings (${t('SIP')})</span>
@@ -443,7 +447,7 @@ function createNewGoal() {
 
   const newGoal = {
     id: Date.now(),
-    title: goalName || "My Savings Goal",
+    title: (goalName && goalName.trim()) ? goalName.trim() : "My Savings Goal",
     category: selectedCategory || "custom",
     icon: categoryIcons[selectedCategory] || "🎯",
     targetAmount: targetAmount,

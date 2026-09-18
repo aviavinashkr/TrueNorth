@@ -70,6 +70,21 @@ export const jargonDictionary = {
 let isSimplified = false;
 
 /**
+ * Safely escapes HTML special characters to prevent DOM-based XSS
+ * @param {*} str - Raw string or value to escape
+ * @returns {string} Escaped HTML-safe string
+ */
+export function escapeHTML(str) {
+  if (str === null || str === undefined) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+/**
  * Helper to generate HTML for a jargon term
  * @param {string} key - Dictionary key
  * @param {string} [overrideText] - Optional custom text to display in Jargon mode
@@ -77,18 +92,18 @@ let isSimplified = false;
  */
 export function t(key, overrideText) {
   const item = jargonDictionary[key];
-  if (!item) return overrideText || key;
+  if (!item) return escapeHTML(overrideText || key);
   
-  const text = isSimplified ? item.simplified : (overrideText || item.jargon);
-  const tooltipText = isSimplified 
+  const rawText = isSimplified ? item.simplified : (overrideText || item.jargon);
+  const rawTooltip = isSimplified 
     ? `Original term: "${item.jargon}". ${item.explanation}` 
     : item.explanation;
   
   const className = isSimplified ? "jargon-term jargon-translated" : "jargon-term";
 
-  return `<span class="${className}" data-jargon-key="${key}" data-override="${overrideText || ''}">
-    <span class="jargon-text-node">${text}</span>
-    <span class="jargon-tooltip">${tooltipText}</span>
+  return `<span class="${className}" data-jargon-key="${escapeHTML(key)}" data-override="${escapeHTML(overrideText || '')}">
+    <span class="jargon-text-node">${escapeHTML(rawText)}</span>
+    <span class="jargon-tooltip">${escapeHTML(rawTooltip)}</span>
   </span>`;
 }
 

@@ -3,7 +3,7 @@
    Enhanced to use real mutual fund NAV data from MFapi.in service
    ========================================================================== */
 
-import { t } from './jargon.js';
+import { t, escapeHTML } from './jargon.js';
 import { formatINR } from './goals.js';
 import { MFapiService } from './services/mfapi.js';
 
@@ -44,12 +44,32 @@ async function calculateDataSeries() {
 }
 
 /**
+ * Safely parses Indian DD-MM-YYYY date format into a Date object
+ * @param {string} dateStr - Date string in DD-MM-YYYY or ISO format
+ * @returns {Date} Parsed Date object
+ */
+function parseIndianDate(dateStr) {
+  if (!dateStr || typeof dateStr !== 'string') return new Date(0);
+  const parts = dateStr.trim().split('-');
+  if (parts.length === 3) {
+    const day = Number(parts[0]);
+    const month = Number(parts[1]);
+    const year = Number(parts[2]);
+    if (!isNaN(day) && !isNaN(month) && !isNaN(year) && year > 1900) {
+      return new Date(year, month - 1, day);
+    }
+  }
+  const fallback = new Date(dateStr);
+  return isNaN(fallback.getTime()) ? new Date(0) : fallback;
+}
+
+/**
  * Calculate series using projected returns (original logic)
  */
 function calculateProjectedSeries(months) {
   const series = [];
-  const rateTN = RATES[riskProfile];
-  const rateFD = RATES.FD;
+  const rateTN = RATES[riskProfile] || 0.105;
+  const rateFD = RATES.FD || 0.065;
 
   const monthlyRateTN = rateTN / 12;
   const monthlyRateFD = rateFD / 12;
@@ -61,16 +81,20 @@ function calculateProjectedSeries(months) {
     let tnValue = 0;
 
     if (m > 0) {
-      fdValue = sipAmount * ((Math.pow(1 + monthlyRateFD, m) - 1) / monthlyRateFD) * (1 + monthlyRateFD);
-      tnValue = sipAmount * ((Math.pow(1 + monthlyRateTN, m) - 1) / monthlyRateTN) * (1 + monthlyRateTN);
+      fdValue = monthlyRateFD > 0
+        ? sipAmount * ((Math.pow(1 + monthlyRateFD, m) - 1) / monthlyRateFD) * (1 + monthlyRateFD)
+        : invested;
+      tnValue = monthlyRateTN > 0
+        ? sipAmount * ((Math.pow(1 + monthlyRateTN, m) - 1) / monthlyRateTN) * (1 + monthlyRateTN)
+        : invested;
     }
 
     series.push({
       month: m,
       year: (m / 12).toFixed(1),
-      invested: Math.round(invested),
-      fd: Math.round(fdValue),
-      truenorth: Math.round(tnValue)
+      invested: Math.round(Number.isFinite(invested) ? invested : 0),
+      fd: Math.round(Number.isFinite(fdValue) ? fdValue : 0),
+      truenorth: Math.round(Number.isFinite(tnValue) ? tnValue : 0)
     });
   }
 
@@ -88,11 +112,11 @@ async function calculateHistoricalSeries(navData, months) {
     return calculateProjectedSeries(months);
   }
 
-    // Sort NAV data by date (oldest first)
+    // Sort NAV data by date (oldest first) using robust date parsing
     const sortedData = [...navData].sort((a, b) => {
-      const [dayA, monthA, yearA] = a.date.split('-').reverse().join('-').split('-').map(Number);
-      const [dayB, monthB, yearB] = b.date.split('-').reverse().join('-').split('-').map(Number);
-      return new Date(yearA, monthA-1, dayA) - new Date(yearB, monthB-1, dayB);
+      const timeA = parseIndianDate(a.date).getTime();
+      const timeB = parseIndianDate(b.date).getTime();
+      return timeA - timeB;
     });
 
     // We want to simulate investing over the last 'historicalPeriod' years
@@ -414,9 +438,10 @@ export async function updateSimulator() {
   const noteEl = document.getElementById('sim-note-text');
   if (noteEl) {
       if (isHistoricalMode) {
-          const schemeName = await getSchemeName(selectedSchemeCode) || selectedSchemeCode;
+          const rawSchemeName = await getSchemeName(selectedSchemeCode) || selectedSchemeCode;
+          const safeScheme = t(escapeHTML(rawSchemeName));
           noteEl.innerHTML = `
-              This simulation reflects actual historical NAV data of the <strong>${t(schemeName)}</strong>
+              This simulation reflects actual historical NAV data of the <strong>${safeScheme}</strong>
               mutual fund over the last <strong>${historicalPeriod} years</strong>.
               In comparison, a traditional Fixed Deposit grew at <strong>6.5%</strong>.
           `;
@@ -427,11 +452,13 @@ export async function updateSimulator() {
               AGGRESSIVE: "growth-oriented stock funds (top 50 Indian companies)"
           };
           const ratePct = (RATES[riskProfile] * 100).toFixed(1);
+          const safeRisk = escapeHTML(riskProfile.toLowerCase());
+          const safeAllocation = escapeHTML(allocationMap[riskProfile] || "balanced allocation");
 
           noteEl.innerHTML = `
               This projection assumes an average annual return of <strong>${ratePct}%</strong>,
-              representing a <strong>${riskProfile.toLowerCase()}</strong> strategy allocated in
-              <strong>${allocationMap[riskProfile]}</strong>.
+              representing a <strong>${safeRisk}</strong> strategy allocated in
+              <strong>${safeAllocation}</strong>.
               Fixed Deposits are calculated at a steady <strong>6.5%</strong> annual return.
           `;
       }

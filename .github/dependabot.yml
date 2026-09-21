@@ -5,10 +5,11 @@
 
 version: 2
 updates:
-  - package-ecosystem: "npm"
-    directory: "/"
-    schedule:
-      interval: "weekly"
+  # Note: The 'npm' ecosystem is disabled until package.json is initialized in the root.
+  # - package-ecosystem: "npm"
+  #   directory: "/"
+  #   schedule:
+  #     interval: "weekly"
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
